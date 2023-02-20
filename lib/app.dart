@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:posts_app/features/posts/presentation/screens/posts_screen.dart';
 
 class PostsApp extends StatelessWidget {
   const PostsApp({super.key});
@@ -6,11 +7,12 @@ class PostsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Posts Application',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Scaffold(),
+      home: const PostsScreen(),
     );
   }
 }

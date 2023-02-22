@@ -28,3 +28,5 @@ class PostsLoadedFailed extends PostsState {
   @override
   List<Object> get props => [message];
 }
+
+class ChangeAppTheme extends PostsState {}

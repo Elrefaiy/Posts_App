@@ -15,6 +15,14 @@ class PostsCubit extends Cubit<PostsState> {
 
   static PostsCubit get(context) => BlocProvider.of(context);
 
+  bool isDark = false;
+  void changeTheme() {
+    emit(PostsInitial());
+    isDark = !isDark;
+    emit(ChangeAppTheme());
+    getAllPosts();
+  }
+
   Future<void> getAllPosts() async {
     emit(PostsIsLoading());
     Either<Failure, List<Post>> response =

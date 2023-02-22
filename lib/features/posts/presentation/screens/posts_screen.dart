@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:posts_app/core/utils/app_colors.dart';
 import 'package:posts_app/core/utils/constants.dart';
 import 'package:posts_app/features/posts/presentation/cubit/posts_cubit.dart';
 import 'package:posts_app/features/posts/presentation/widgets/post_widget.dart';
@@ -46,6 +47,15 @@ class PostsScreen extends StatelessWidget {
 
     AppBar appBar = AppBar(
       title: const Text('All Posts'),
+      actions: [
+        IconButton(
+          onPressed: () {
+            PostsCubit.get(context).changeTheme();
+          },
+          icon: const Icon(Icons.brightness_4),
+        ),
+        const SizedBox(width: 10),
+      ],
     );
 
     FloatingActionButton actionButton = FloatingActionButton(

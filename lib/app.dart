@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:posts_app/config/themes/dark_theme.dart';
 import 'package:posts_app/config/themes/light_theme.dart';
 import 'package:posts_app/features/posts/presentation/cubit/posts_cubit.dart';
 import 'package:posts_app/features/posts/presentation/screens/posts_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'injection_conainer.dart' as di;
 
 class PostsApp extends StatelessWidget {
+  // final SharedPreferences sharedPreferences;
   const PostsApp({super.key});
 
   @override
@@ -17,7 +20,7 @@ class PostsApp extends StatelessWidget {
           return MaterialApp(
             title: 'Posts Application',
             debugShowCheckedModeBanner: false,
-            theme: lightTheme(),
+            theme: PostsCubit.get(context).isDark ? darkTheme() : lightTheme(),
             home: const PostsScreen(),
           );
         },

@@ -10,6 +10,7 @@ import 'package:posts_app/features/posts/data/repositories/post_repo_impl.dart';
 import 'package:posts_app/features/posts/domain/repositories/post_repository.dart';
 import 'package:posts_app/features/posts/domain/usecases/get_posts_usecase.dart';
 import 'package:posts_app/features/posts/presentation/cubit/posts_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
 
@@ -37,6 +38,10 @@ Future<void> init() async {
     () => PostsRemoteDatasourceImpl(apiConsumer: sl()),
   );
 
+  // sl.registerLazySingleton<PostsLocalDatasource>(
+  //   () => PostsRemoteDatasourceImpl(sharedPreferences: sl()),
+  // );
+
   //! Core
   sl.registerLazySingleton<ApiConsumer>(
     () => DioConsumer(dio: sl()),
@@ -59,4 +64,5 @@ Future<void> init() async {
   );
   sl.registerLazySingleton(() => InternetConnectionChecker());
   sl.registerLazySingleton(() => Dio());
+  // sl.registerLazySingleton(() => SharedPreferences());
 }

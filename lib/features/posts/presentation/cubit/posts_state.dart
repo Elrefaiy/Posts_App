@@ -8,3 +8,23 @@ abstract class PostsState extends Equatable {
 }
 
 class PostsInitial extends PostsState {}
+
+class PostsIsLoading extends PostsState {}
+
+class PostsLoadedSuccessfully extends PostsState {
+  final List<Post> posts;
+
+  const PostsLoadedSuccessfully({required this.posts});
+
+  @override
+  List<Object> get props => [posts];
+}
+
+class PostsLoadedFailed extends PostsState {
+  final String message;
+
+  const PostsLoadedFailed({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

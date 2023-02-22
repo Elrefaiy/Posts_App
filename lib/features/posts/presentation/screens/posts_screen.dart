@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:posts_app/core/utils/app_colors.dart';
 import 'package:posts_app/core/utils/constants.dart';
 import 'package:posts_app/features/posts/presentation/cubit/posts_cubit.dart';
+import 'package:posts_app/features/posts/presentation/widgets/error_widget.dart';
 import 'package:posts_app/features/posts/presentation/widgets/post_widget.dart';
 
 class PostsScreen extends StatelessWidget {
@@ -39,7 +39,7 @@ class PostsScreen extends StatelessWidget {
               itemCount: state.posts.length,
             );
           } else {
-            return const Center(child: Text('Unexpected Error'));
+            return const NoInternetWidget();
           }
         },
       );

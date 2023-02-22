@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:posts_app/app.dart';
+import 'package:posts_app/injection_conainer.dart' as di;
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(const PostsApp());
 }

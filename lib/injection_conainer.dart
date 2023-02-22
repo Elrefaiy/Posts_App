@@ -12,13 +12,20 @@ import 'package:posts_app/features/posts/domain/usecases/get_posts_usecase.dart'
 import 'package:posts_app/features/posts/presentation/cubit/posts_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'features/posts/data/datasources/local_datasource.dart';
+
 final sl = GetIt.instance;
 
 Future<void> init() async {
   //! Featuers
 
   // Blocs
-  sl.registerFactory<PostsCubit>(() => PostsCubit(getAllPostsUseCase: sl()));
+  sl.registerFactory<PostsCubit>(
+    () => PostsCubit(
+      getAllPostsUseCase: sl(),
+      sharedPreferences: sl(),
+    ),
+  );
 
   // Use Cases
 
@@ -29,6 +36,7 @@ Future<void> init() async {
   sl.registerLazySingleton<PostsRepository>(
     () => PostsRepositoryImpl(
       postsRemoteDatasource: sl(),
+      postsLocalDatasource: sl(),
       networkInfo: sl(),
     ),
   );
@@ -37,10 +45,9 @@ Future<void> init() async {
   sl.registerLazySingleton<PostsRemoteDatasource>(
     () => PostsRemoteDatasourceImpl(apiConsumer: sl()),
   );
-
-  // sl.registerLazySingleton<PostsLocalDatasource>(
-  //   () => PostsRemoteDatasourceImpl(sharedPreferences: sl()),
-  // );
+  sl.registerLazySingleton<PostsLocalDatasource>(
+    () => PostsLocalDatasourceImpl(sharedPreferences: sl()),
+  );
 
   //! Core
   sl.registerLazySingleton<ApiConsumer>(
@@ -64,5 +71,6 @@ Future<void> init() async {
   );
   sl.registerLazySingleton(() => InternetConnectionChecker());
   sl.registerLazySingleton(() => Dio());
-  // sl.registerLazySingleton(() => SharedPreferences());
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPreferences);
 }

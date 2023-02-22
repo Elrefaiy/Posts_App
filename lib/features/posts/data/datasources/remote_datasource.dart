@@ -3,7 +3,7 @@ import 'package:posts_app/core/api/end_points.dart';
 import 'package:posts_app/features/posts/data/models/post_model.dart';
 
 abstract class PostsRemoteDatasource {
-  Future<List<PostModel>> getAllPosts();
+  Future<List<PostModel>> getAllRemotePosts();
 }
 
 class PostsRemoteDatasourceImpl implements PostsRemoteDatasource {
@@ -12,7 +12,7 @@ class PostsRemoteDatasourceImpl implements PostsRemoteDatasource {
   PostsRemoteDatasourceImpl({required this.apiConsumer});
 
   @override
-  Future<List<PostModel>> getAllPosts() async {
+  Future<List<PostModel>> getAllRemotePosts() async {
     List response = await apiConsumer.get(path: EndPoints.posts);
     return List.generate(
       response.length,

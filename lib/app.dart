@@ -4,17 +4,18 @@ import 'package:posts_app/config/themes/dark_theme.dart';
 import 'package:posts_app/config/themes/light_theme.dart';
 import 'package:posts_app/features/posts/presentation/cubit/posts_cubit.dart';
 import 'package:posts_app/features/posts/presentation/screens/posts_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'injection_conainer.dart' as di;
 
 class PostsApp extends StatelessWidget {
-  // final SharedPreferences sharedPreferences;
-  const PostsApp({super.key});
+  final bool isDark;
+  const PostsApp({required this.isDark, super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => di.sl<PostsCubit>()..getAllPosts(),
+      create: (context) => di.sl<PostsCubit>()
+        ..getAllPosts()
+        ..changeTheme(mode: isDark),
       child: BlocBuilder<PostsCubit, PostsState>(
         builder: (context, state) {
           return MaterialApp(

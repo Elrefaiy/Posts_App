@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:posts_app/config/routes/app_routes.dart';
 import 'package:posts_app/config/themes/dark_theme.dart';
 import 'package:posts_app/config/themes/light_theme.dart';
 import 'package:posts_app/features/posts/presentation/cubit/posts_cubit.dart';
@@ -20,6 +21,7 @@ class PostsApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             title: 'Posts Application',
+            onGenerateRoute: AppRoutes.onGeneratedRoute,
             debugShowCheckedModeBanner: false,
             theme: PostsCubit.get(context).isDark ? darkTheme() : lightTheme(),
             home: const PostsScreen(),

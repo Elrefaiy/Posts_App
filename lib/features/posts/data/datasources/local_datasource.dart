@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:posts_app/core/errors/exceptions.dart';
 import 'package:posts_app/core/utils/app_strings.dart';

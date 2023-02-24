@@ -14,9 +14,11 @@ class PostsRemoteDatasourceImpl implements PostsRemoteDatasource {
   @override
   Future<List<PostModel>> getAllRemotePosts() async {
     List response = await apiConsumer.get(path: EndPoints.posts);
-    return List.generate(
-      response.length,
-      (index) => PostModel.fromJson(response[index]),
+    return Future.value(
+      List.generate(
+        response.length,
+        (index) => PostModel.fromJson(response[index]),
+      ),
     );
   }
 }

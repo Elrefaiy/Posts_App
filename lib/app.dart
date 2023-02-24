@@ -14,9 +14,7 @@ class PostsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => di.sl<PostsCubit>()
-        ..getAllPosts()
-        ..changeTheme(mode: isDark),
+      create: (context) => di.sl<PostsCubit>()..changeTheme(mode: isDark),
       child: BlocBuilder<PostsCubit, PostsState>(
         builder: (context, state) {
           return MaterialApp(

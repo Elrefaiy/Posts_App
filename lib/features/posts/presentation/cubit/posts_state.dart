@@ -30,3 +30,16 @@ class PostsLoadedFailed extends PostsState {
 }
 
 class ChangeAppTheme extends PostsState {}
+
+class AddingPostLoading extends PostsState {}
+
+class PostAddedSuccessfully extends PostsState {}
+
+class AddingPostFailed extends PostsState {
+  final String message;
+
+  const AddingPostFailed({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

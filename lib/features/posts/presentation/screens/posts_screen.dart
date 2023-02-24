@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:posts_app/config/routes/app_routes.dart';
 import 'package:posts_app/core/utils/constants.dart';
 import 'package:posts_app/features/posts/presentation/cubit/posts_cubit.dart';
 import 'package:posts_app/features/posts/presentation/widgets/error_widget.dart';
@@ -59,7 +60,9 @@ class PostsScreen extends StatelessWidget {
     );
 
     FloatingActionButton actionButton = FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, Routes.addPost);
+      },
       child: const Icon(Icons.add),
     );
 

@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:posts_app/core/api/end_points.dart';
 import 'package:posts_app/core/errors/failure.dart';
 import 'package:posts_app/core/usecase/usecase.dart';
 import 'package:posts_app/core/utils/app_strings.dart';

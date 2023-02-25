@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:posts_app/core/api/api_consumer.dart';
 import 'package:posts_app/core/api/end_points.dart';
-import 'package:posts_app/core/errors/exceptions.dart';
 import 'package:posts_app/core/errors/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:posts_app/core/network/network_info.dart';
@@ -18,7 +16,7 @@ class AddNewPostRepositoryImpl implements AddNewPostRepository {
   });
 
   @override
-  Future<Either<Failure, void>> addNewPost(
+  Future<Either<Failure, dynamic>> addNewPost(
       {required AddPostParams params}) async {
     if (await networkInfo.isConnected) {
       try {

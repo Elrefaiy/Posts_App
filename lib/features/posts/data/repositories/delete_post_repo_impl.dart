@@ -15,7 +15,7 @@ class DeletePostRepositoryImpl implements DeletePostRepository {
     required this.apiConsumer,
   });
   @override
-  Future<Either<Failure, void>> deletePost(int id) async {
+  Future<Either<Failure, dynamic>> deletePost(int id) async {
     if (await networkInfo.isConnected) {
       try {
         final request = await apiConsumer.delete(path: EndPoints.postId(id));

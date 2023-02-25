@@ -2,11 +2,13 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:posts_app/core/api/end_points.dart';
 import 'package:posts_app/core/errors/failure.dart';
 import 'package:posts_app/core/usecase/usecase.dart';
 import 'package:posts_app/core/utils/app_strings.dart';
 import 'package:posts_app/features/posts/domain/entities/post.dart';
 import 'package:posts_app/features/posts/domain/usecases/add_post_usecase.dart';
+import 'package:posts_app/features/posts/domain/usecases/delete_post_usecase.dart';
 import 'package:posts_app/features/posts/domain/usecases/get_posts_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,10 +17,12 @@ part 'posts_state.dart';
 class PostsCubit extends Cubit<PostsState> {
   final GetAllPostsUseCase getAllPostsUseCase;
   final AddNewPostUseCase addNewPostUseCase;
+  final DeletePostUseCase deletePostUseCase;
   final SharedPreferences sharedPreferences;
   PostsCubit({
     required this.getAllPostsUseCase,
     required this.addNewPostUseCase,
+    required this.deletePostUseCase,
     required this.sharedPreferences,
   }) : super(PostsInitial());
 
@@ -70,6 +74,20 @@ class PostsCubit extends Cubit<PostsState> {
       request.fold(
         (failure) => AddingPostFailed(message: mapFailureToMessage(failure)),
         (right) => PostAddedSuccessfully(),
+      ),
+    );
+    getAllPosts();
+  }
+
+  Future<void> deletePost({
+    required int postId,
+  }) async {
+    emit(DeletePostLodaing());
+    Either<Failure, void> request = await deletePostUseCase.call(postId);
+    emit(
+      request.fold(
+        (failure) => DeletingPostFailed(message: mapFailureToMessage(failure)),
+        (right) => PostDeletedSuccessfully(),
       ),
     );
     getAllPosts();

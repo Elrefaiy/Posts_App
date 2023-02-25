@@ -39,6 +39,39 @@ class PostWidget extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(width: 20),
+          Column(
+            children: [
+              InkWell(
+                onTap: () {
+                  PostsCubit.get(context).deletePost(postId: post.id);
+                },
+                child: Icon(
+                  Icons.close,
+                  size: 20,
+                  color: PostsCubit.get(context).isDark
+                      ? Colors.white
+                      : Colors.black,
+                ),
+              ),
+              Container(
+                color: AppColors.hint(),
+                height: 1,
+                width: 20,
+                margin: const EdgeInsets.symmetric(vertical: 10),
+              ),
+              InkWell(
+                onTap: () {},
+                child: Icon(
+                  Icons.edit,
+                  size: 18,
+                  color: PostsCubit.get(context).isDark
+                      ? Colors.white
+                      : Colors.black,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

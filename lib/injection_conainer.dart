@@ -9,13 +9,16 @@ import 'package:posts_app/features/posts/data/datasources/remote_datasource.dart
 import 'package:posts_app/features/posts/data/repositories/add_post_repo_impl.dart';
 import 'package:posts_app/features/posts/data/repositories/post_repo_impl.dart';
 import 'package:posts_app/features/posts/domain/repositories/add_post_repository.dart';
+import 'package:posts_app/features/posts/domain/repositories/delete_post_repository.dart';
 import 'package:posts_app/features/posts/domain/repositories/post_repository.dart';
 import 'package:posts_app/features/posts/domain/usecases/add_post_usecase.dart';
+import 'package:posts_app/features/posts/domain/usecases/delete_post_usecase.dart';
 import 'package:posts_app/features/posts/domain/usecases/get_posts_usecase.dart';
 import 'package:posts_app/features/posts/presentation/cubit/posts_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/posts/data/datasources/local_datasource.dart';
+import 'features/posts/data/repositories/delete_post_repo_impl.dart';
 
 final sl = GetIt.instance;
 
@@ -27,6 +30,7 @@ Future<void> init() async {
     () => PostsCubit(
       getAllPostsUseCase: sl(),
       addNewPostUseCase: sl(),
+      deletePostUseCase: sl(),
       sharedPreferences: sl(),
     ),
   );
@@ -37,6 +41,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<AddNewPostUseCase>(
       () => AddNewPostUseCase(addNewPostRepository: sl()));
+
+  sl.registerLazySingleton<DeletePostUseCase>(
+      () => DeletePostUseCase(deletePostRepository: sl()));
 
   // Repositories
   sl.registerLazySingleton<PostsRepository>(
@@ -49,6 +56,13 @@ Future<void> init() async {
 
   sl.registerLazySingleton<AddNewPostRepository>(
     () => AddNewPostRepositoryImpl(
+      networkInfo: sl(),
+      apiConsumer: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<DeletePostRepository>(
+    () => DeletePostRepositoryImpl(
       networkInfo: sl(),
       apiConsumer: sl(),
     ),

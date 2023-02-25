@@ -60,6 +60,19 @@ class DioConsumer extends ApiConsumer {
     }
   }
 
+  @override
+  Future delete({
+    required String path,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    try {
+      final response = await dio.delete(path, queryParameters: queryParameters);
+      return _handleResponseAsJson(response);
+    } on DioError catch (error) {
+      _handleDioError(error);
+    }
+  }
+
   dynamic _handleResponseAsJson(Response<dynamic> response) {
     final responseJson = jsonDecode(response.data.toString());
     return responseJson;

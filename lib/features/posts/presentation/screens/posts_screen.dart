@@ -23,24 +23,29 @@ class PostsScreen extends StatelessWidget {
           if (state is PostsLoadedFailed) {
             AppConstants.showSnackBar(
               context: context,
-              message: 'Check your connection',
+              message: '- check your connection',
               action: 'Refresh',
               onPressed: () => PostsCubit.get(context).getAllPosts(),
+            );
+          } else if (state is PostDeletedSuccessfully) {
+            AppConstants.showSnackBar(
+              context: context,
+              message: '- post deleted succeffully',
             );
           }
         },
         builder: (context, state) {
-          if (state is PostsIsLoading) {
-            return loadingWidget();
-          } else if (state is PostsLoadedSuccessfully) {
+          if (state is PostsLoadedSuccessfully) {
             return ListView.separated(
               itemBuilder: (context, index) =>
                   PostWidget(post: state.posts[index]),
               separatorBuilder: (context, index) => const SizedBox(height: 10),
               itemCount: state.posts.length,
             );
-          } else {
+          } else if (state is PostsLoadedFailed) {
             return const NoInternetWidget();
+          } else {
+            return loadingWidget();
           }
         },
       );

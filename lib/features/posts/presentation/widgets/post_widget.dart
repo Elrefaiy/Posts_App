@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:posts_app/config/routes/app_routes.dart';
 import 'package:posts_app/core/utils/app_colors.dart';
 import 'package:posts_app/features/posts/domain/entities/post.dart';
 import 'package:posts_app/features/posts/presentation/cubit/posts_cubit.dart';
+import 'package:posts_app/features/posts/presentation/screens/update_post_screen.dart';
 
 class PostWidget extends StatelessWidget {
   final Post post;
@@ -61,7 +63,17 @@ class PostWidget extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 10),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  //! 'll be edited in near future ..
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return UpdatePostScreen(post: post);
+                      },
+                    ),
+                  );
+                },
                 child: Icon(
                   Icons.edit,
                   size: 18,

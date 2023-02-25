@@ -11,14 +11,17 @@ import 'package:posts_app/features/posts/data/repositories/post_repo_impl.dart';
 import 'package:posts_app/features/posts/domain/repositories/add_post_repository.dart';
 import 'package:posts_app/features/posts/domain/repositories/delete_post_repository.dart';
 import 'package:posts_app/features/posts/domain/repositories/post_repository.dart';
+import 'package:posts_app/features/posts/domain/repositories/update_post_repository.dart';
 import 'package:posts_app/features/posts/domain/usecases/add_post_usecase.dart';
 import 'package:posts_app/features/posts/domain/usecases/delete_post_usecase.dart';
 import 'package:posts_app/features/posts/domain/usecases/get_posts_usecase.dart';
+import 'package:posts_app/features/posts/domain/usecases/update_post_usecase.dart';
 import 'package:posts_app/features/posts/presentation/cubit/posts_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/posts/data/datasources/local_datasource.dart';
 import 'features/posts/data/repositories/delete_post_repo_impl.dart';
+import 'features/posts/data/repositories/update_post_repo_impl.dart';
 
 final sl = GetIt.instance;
 
@@ -31,6 +34,7 @@ Future<void> init() async {
       getAllPostsUseCase: sl(),
       addNewPostUseCase: sl(),
       deletePostUseCase: sl(),
+      updatePostUseCase: sl(),
       sharedPreferences: sl(),
     ),
   );
@@ -44,6 +48,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<DeletePostUseCase>(
       () => DeletePostUseCase(deletePostRepository: sl()));
+
+  sl.registerLazySingleton<UpdatePostUseCase>(
+      () => UpdatePostUseCase(updatePostRepository: sl()));
 
   // Repositories
   sl.registerLazySingleton<PostsRepository>(
@@ -63,6 +70,13 @@ Future<void> init() async {
 
   sl.registerLazySingleton<DeletePostRepository>(
     () => DeletePostRepositoryImpl(
+      networkInfo: sl(),
+      apiConsumer: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<UpdatePostRepository>(
+    () => UpdatePostRepositoryImpl(
       networkInfo: sl(),
       apiConsumer: sl(),
     ),

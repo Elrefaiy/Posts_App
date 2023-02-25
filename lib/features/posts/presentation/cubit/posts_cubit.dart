@@ -6,9 +6,11 @@ import 'package:posts_app/core/errors/failure.dart';
 import 'package:posts_app/core/usecase/usecase.dart';
 import 'package:posts_app/core/utils/app_strings.dart';
 import 'package:posts_app/features/posts/domain/entities/post.dart';
+import 'package:posts_app/features/posts/domain/repositories/add_post_repository.dart';
 import 'package:posts_app/features/posts/domain/usecases/add_post_usecase.dart';
 import 'package:posts_app/features/posts/domain/usecases/delete_post_usecase.dart';
 import 'package:posts_app/features/posts/domain/usecases/get_posts_usecase.dart';
+import 'package:posts_app/features/posts/domain/usecases/update_post_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'posts_state.dart';
@@ -17,11 +19,13 @@ class PostsCubit extends Cubit<PostsState> {
   final GetAllPostsUseCase getAllPostsUseCase;
   final AddNewPostUseCase addNewPostUseCase;
   final DeletePostUseCase deletePostUseCase;
+  final UpdatePostUseCase updatePostUseCase;
   final SharedPreferences sharedPreferences;
   PostsCubit({
     required this.getAllPostsUseCase,
     required this.addNewPostUseCase,
     required this.deletePostUseCase,
+    required this.updatePostUseCase,
     required this.sharedPreferences,
   }) : super(PostsInitial());
 
@@ -75,7 +79,6 @@ class PostsCubit extends Cubit<PostsState> {
         (right) => PostAddedSuccessfully(),
       ),
     );
-    getAllPosts();
   }
 
   Future<void> deletePost({
@@ -90,6 +93,36 @@ class PostsCubit extends Cubit<PostsState> {
       ),
     );
     getAllPosts();
+  }
+
+  var newUserId = TextEditingController();
+  var newId = TextEditingController();
+  var newTitle = TextEditingController();
+  var newbody = TextEditingController();
+
+  Future<void> updatePost({
+    required int postId,
+    required int newId,
+    required int userId,
+    required String title,
+    required String body,
+  }) async {
+    emit(UpdatePostLodaing());
+    Either<Failure, void> request = await updatePostUseCase.call(
+      UpdatePostParams(
+        postId: postId,
+        id: newId,
+        title: title,
+        body: body,
+        userId: userId,
+      ),
+    );
+    emit(
+      request.fold(
+        (failure) => UpdatingPostFailed(message: mapFailureToMessage(failure)),
+        (right) => PostUpdatedSuccessfully(),
+      ),
+    );
   }
 
   String mapFailureToMessage(Failure failure) {

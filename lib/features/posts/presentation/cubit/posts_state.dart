@@ -56,3 +56,16 @@ class DeletingPostFailed extends PostsState {
   @override
   List<Object> get props => [message];
 }
+
+class UpdatePostLodaing extends PostsState {}
+
+class PostUpdatedSuccessfully extends PostsState {}
+
+class UpdatingPostFailed extends PostsState {
+  final String message;
+
+  const UpdatingPostFailed({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

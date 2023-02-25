@@ -10,22 +10,3 @@ class NoParams extends Equatable {
   @override
   List<Object?> get props => [];
 }
-
-class AddPostParams extends Equatable {
-  final int userId;
-  final String title;
-  final String body;
-  const AddPostParams({
-    required this.userId,
-    required this.title,
-    required this.body,
-  });
-  @override
-  List<Object?> get props => [userId, title, body];
-
-  Map<String, dynamic> toMap() => {
-        'userId': userId,
-        'title': title,
-        'body': body,
-      };
-}

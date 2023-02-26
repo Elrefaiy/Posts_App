@@ -3,7 +3,6 @@ import 'package:posts_app/core/api/end_points.dart';
 import 'package:posts_app/core/errors/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:posts_app/core/network/network_info.dart';
-import 'package:posts_app/core/usecase/usecase.dart';
 import 'package:posts_app/features/posts/domain/repositories/add_post_repository.dart';
 
 class AddNewPostRepositoryImpl implements AddNewPostRepository {

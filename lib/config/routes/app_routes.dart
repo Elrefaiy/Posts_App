@@ -7,19 +7,29 @@ import 'package:posts_app/features/posts/presentation/screens/update_post_screen
 class Routes {
   static const String home = '/';
   static const String addPost = '/add_post';
-  // static const String updatePost = '/update_post';
+  static const String updatePost = '/update_post';
 }
 
 class AppRoutes {
-  static Route onGeneratedRoute(RouteSettings route) {
-    switch (route.name) {
+  static Route onGeneratedRoute(RouteSettings settings) {
+    switch (settings.name) {
       case Routes.home:
-        return MaterialPageRoute(builder: (context) => const PostsScreen());
+        return MaterialPageRoute(
+          builder: (context) => const PostsScreen(),
+        );
       case Routes.addPost:
-        return MaterialPageRoute(builder: (context) => const AddPostScreen());
-      // case Routes.updatePost:
-      //   return MaterialPageRoute(
-      //       builder: (context) => const UpdatePostScreen(post: ,));
+        return MaterialPageRoute(
+          builder: (context) => const AddPostScreen(),
+        );
+      case Routes.updatePost:
+        {
+          final post = settings.arguments as Post;
+          return MaterialPageRoute(
+            builder: (context) => UpdatePostScreen(
+              post: post,
+            ),
+          );
+        }
       default:
         return unknownRoute();
     }
